@@ -1,12 +1,13 @@
 module.exports = {
-  dialect: 'postgres',
-  host: 'localhost',
-  username: 'postgres',
-  password: 'covid1234',
-  database: 'database_covid_dev_2',
-  define: {
-    timestamp: true,
-    underscored: true,
-    underscoredAll: true,
-  },
+
+    dialect:'postgres',
+    host:'localhost',
+    username:'postgres',
+    password:'docker',
+    database:'covidbase',
+    define:{
+      timestamps:true,
+      underscored:true,
+      underscoredAll:true,
+    },
 };
