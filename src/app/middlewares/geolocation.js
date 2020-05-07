@@ -1,13 +1,11 @@
+export default (req,res,next)=>{
 
+   // correios e geolocation vao aqui
+   const lat = -23.25165
+   const long = -23.5262
 
-class Geolocation {
-  constructor(cep){
-    this.cep=cep
-  }
+   req.body.lat = lat
+   req.body.long = long
 
-  getDatas(){
-
-  }
-
+  return next()
 }
-export default new Geolocation

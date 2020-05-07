@@ -1,13 +1,4 @@
+export default (req,res,next)=>{
 
-
-class Correios {
-  constructor(cep){
-    this.cep=cep
-  }
-
-  converteEndereco(){
-
-  }
-
+  return next()
 }
-export default new Correios
