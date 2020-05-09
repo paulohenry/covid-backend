@@ -1,5 +1,6 @@
 import * as Yup from 'yup'
 import User from '../models/User'
+import Position from '../models/Position'
 
 
 class UserController {
@@ -8,8 +9,17 @@ class UserController {
           primeiro_nome: Yup.string().required().min(3).max(20),
           ultimo_nome:Yup.string().required().min(3).max(20),
           celular:Yup.string().required().length(11),
-          cep:Yup.string().required().length(8),
-          senha:Yup.string().required().length(6)
+          senha:Yup.string().required().length(6),
+          cep:Yup.number().required(),
+          complemento:Yup.string(),
+          lat:Yup.number().required(),
+          long:Yup.number().required(),
+          numero:Yup.number().required(),
+          rua:Yup.string().required(),
+          bairro:Yup.string().required(),
+          cidade:Yup.string().required(),
+          estado:Yup.string().required(),
+          pais:Yup.string().required(),
         })
 
         if(!(await schema.isValid(req.body))){
@@ -19,6 +29,7 @@ class UserController {
 
       const userExist = await User.findOne({where:{celular: req.body.celular}})
 
+
       if(userExist){
         return res.status(400).json({error:'usuário já existe em nossa base de dados'})
       }
@@ -26,51 +37,91 @@ class UserController {
 
 
     const {
-          id,
-          primeiro_nome,
-          ultimo_nome,
-          celular,
-          cep,
-          lat,
-          long
+      id,
+      primeiro_nome,
+      ultimo_nome,
+      celular,
+      lat,
+      long,
+      cep,
+      rua,
+      numero,
+      complemento,
+      bairro,
+      cidade,
+      estado,
+      pais
           } = await User.create(req.body)
 
 
-
+      await Position.create({
+            user_celular:celular,
+            lat,
+            long,
+            bairro,
+            cidade,
+            estado,
+            pais
+          })
     return res.status(201).json({
       id,
       primeiro_nome,
       ultimo_nome,
       celular,
-      cep,
+      rua,
+      complemento,
       lat,
       long,
-    })
+      cep,
+      numero,
+      bairro,
+      cidade,
+      estado,
+      pais  })
 
 }
 
 
 
-  async getByID(req,res){
+  async getByID(req,res,next){
 
-      const {userId} = req
+      const userId = await User.findByPk(req.userId)
+
+      if(!userId){
+        return res.status(404).json({error:'usuário não encontrado ou não existe'})
+      }
     const {
       id,
       primeiro_nome,
       ultimo_nome,
       celular,
-      cep,
       lat,
       long,
-    } = await User.findOne({where:{id:userId}})
+      cep,
+      rua,
+      numero,
+      complemento,
+      bairro,
+      cidade,
+      estado,
+      pais} = await User.findOne({where:{id:req.userId}})
+
+
     return res.status(200).json({
       id,
       primeiro_nome,
       ultimo_nome,
       celular,
-      cep,
       lat,
       long,
+      cep,
+      rua,
+      numero,
+      complemento,
+      bairro,
+      cidade,
+      estado,
+      pais
     })
 
   }
@@ -83,7 +134,16 @@ class UserController {
         primeiro_nome: Yup.string().min(3).max(20),
         ultimo_nome:Yup.string().min(3).max(20),
         celular:Yup.string().length(11),
-        cep:Yup.string().length(8),
+        cep:Yup.number(),
+        complemento:Yup.string(),
+        lat:Yup.number(),
+        long:Yup.number(),
+        numero:Yup.number(),
+        rua:Yup.string(),
+        bairro:Yup.string(),
+        cidade:Yup.string(),
+        estado:Yup.string(),
+        pais:Yup.string(),
         senha_antiga: Yup.string().length(6),
         senha:Yup.string().required().length(6)
         .when('senha_antiga', (senha_antiga, field)=>
@@ -96,6 +156,7 @@ class UserController {
       }
 
     const user_db = await User.findByPk(req.userId)
+    // const position_db = await Position.findByPk(req.userId)
     const user_req = req.body
     const celular_de_outro_user = await User.findOne({where:{celular:user_req.celular}})
 
@@ -109,38 +170,66 @@ class UserController {
       return res.status(401).json({error:'senha antiga incorreta'})
     }
      const {
-           id,
-           primeiro_nome,
-           ultimo_nome,
-           celular,
-           cep,
-           lat,
-           long,
+      id,
+      primeiro_nome,
+      ultimo_nome,
+      celular,
+      lat,
+      long,
+      cep,
+      rua,
+      numero,
+      complemento,
+      bairro,
+      cidade,
+      estado,
+      pais
            } = await user_db.update(req.body)
+
+
+      //  await position_db.update({
+      //    id,
+      //    lat,
+      //    long,
+      //    bairro,
+      //    cidade,
+      //    estado,
+      //    pais
+      //  })
+
      return res.status(202).json({
-            id,
-            primeiro_nome,
-            ultimo_nome,
-            celular,
-            cep,
-            lat,
-            long,
+      id,
+      primeiro_nome,
+      ultimo_nome,
+      celular,
+      lat,
+      long,
+      cep,
+      rua,
+      numero,
+      complemento,
+      bairro,
+      cidade,
+      estado,
+      pais
            })
 
 }
 
   async delete(req,res){
       const senha_req=req.body.senha
-      const {senha_do_banco} = await User.findOne({where:{id:req.userId}})
-      if(senha_req === senha_do_banco){
+      const user_db = await User.findByPk(req.userId)
+      if(!(await user_db.checkPassword(senha_req))){
+        return res.status(401).json({error:'senha  incorreta'})
+      }
+      const user = await User.destroy({where:{id:req.userId}})
 
-        const user = await User.destroy({where:{id:req.userId}})
-        if(!user){
+      if(!user){
           return res.status(200).send({message:'usuário deletado ou não existe'})
         }
-        return res.status(200).send({message:'usuário deletado com sucesso'})
-      }
-      return res.status(200).send({message:'senha inválida'})
+
+      return res.status(200).send({message:'usuário deletado com sucesso'})
+
 
   }
 }

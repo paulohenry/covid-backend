@@ -7,7 +7,7 @@ class SessionController {
 
 
   async store(req,res){
-
+    try{
     const {celular, senha} = req.body
 
     const user = await User.findOne({where:{celular}})
@@ -35,7 +35,9 @@ class SessionController {
       celular},
       token:jwt.sign({id}, authconfig.secret)
     })
-
+  }catch(error){
+    return res.status(500).json({error:'erro interno  500 login'})
+  }
  }
 }
 

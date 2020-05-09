@@ -1,11 +1,28 @@
-export default (req,res,next)=>{
+import NodeGeocoder from 'node-geocoder'
+import key from '../../config/googlekey'
 
-   // correios e geolocation vao aqui
-   const lat = -23.25165
-   const long = -23.5262
+  export default async (req,res,next)=>{
+    try{
+    const  geocoder  = NodeGeocoder({
+      provider:key.provider,
+      apiKey:key.apiKey,
+    });
 
-   req.body.lat = lat
-   req.body.long = long
+    const {cep,rua,numero} = req.body
+    const endereco = `${rua} ,${numero} - ${cep}`
+    const geo = await geocoder.geocode(endereco);
 
-  return next()
-}
+    req.body.lat = geo[0].latitude
+    req.body.long = geo[0].longitude
+    req.body.bairro = geo[0].extra.neighborhood
+    req.body.cidade = geo[0].administrativeLevels.level2long
+    req.body.estado = geo[0].administrativeLevels.level1long
+    req.body.pais = geo[0].country
+
+    return next()
+
+  }catch(error){
+      return res.status(500).json({error:'erro interno geolocalizacao'})
+    }
+  }
+
