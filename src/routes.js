@@ -18,7 +18,8 @@ routes.put('/users/', autheticate, geolocationGoogle, userController.update);
 routes.delete('/users/', autheticate, userController.delete);
 
 routes.put('/form/', autheticate, Classify, formController.update);
-routes.get('/form/', autheticate, formController.update);
+routes.get('/form/', autheticate, formController.get);
+
 routes.post('/session/', sessionController.store);
 
 

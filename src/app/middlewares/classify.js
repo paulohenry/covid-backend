@@ -1,6 +1,8 @@
 export default (req,res,next)=>{
   // pegando formulario
-  let classificacao = 10
+  let classificacao = 0
+
+
 
   const {
     resposta1,
@@ -9,7 +11,7 @@ export default (req,res,next)=>{
     resposta4,
     resposta5,
     resposta6,
-    resposta6A,
+    resposta6_a,
     resposta7,
     resposta8,
     resposta9,
@@ -19,6 +21,7 @@ export default (req,res,next)=>{
     resposta13,
     resposta14,
     resposta15,
+
 
 
   } = req.body
@@ -140,7 +143,7 @@ export default (req,res,next)=>{
 
 
 
-      switch (resposta6A) {
+      switch (resposta6_a) {
         case 'Não estou nesta lista':
         classificacao +=0
         break;
@@ -372,29 +375,49 @@ export default (req,res,next)=>{
   // fazer calculos de pontuacao
   // essa pontuacao vem da soma dos formularios
   // resultado final abaixo vai para outra verificacao de cores
-  switch (classificacao) {
-      case (classificacao<=10) :
-         classificacao='blue'
-      break;
-      case (classificacao<=10 && classificacao>=20):
-        classificacao='green'
-      break;
-      case (classificacao<=21 && classificacao>=31):
-      classificacao='yellow'
-      break;
-      case (classificacao>=32):
-      classificacao='red'
-      break;
-      default:
-      break;
-  }
+
+
+
+  const cores = (c)=>{
+
+      if(c<=10){
+        c = 'blue'
+      }
+      if(c<=11 && c>=20){
+        c = 'green'
+      }
+      if(c<=21 && c>=31){
+        c = 'yellow'
+      }
+      if(c>=32){
+        c = 'red'
+      }
+      return c
+    }
+
+
+   req.body.classify = cores(classificacao)
+
+
+
+
+
+
   // criar a cor para para range de pontuações - GREEN YELLOW RED BLUE
 
   // colocar pontuacao no pormulario
-  req.body.classify = classificacao
+
+  req.body.resposta6=JSON.stringify(resposta6)
+  req.body.resposta7=JSON.stringify(resposta7)
+  req.body.resposta8=JSON.stringify(resposta8)
+  req.body.resposta11=JSON.stringify(resposta11)
+  req.body.resposta12=JSON.stringify(resposta12)
+  req.body.resposta14=JSON.stringify(resposta14)
+  req.body.resposta15=JSON.stringify(resposta15)
+
 
 
 
    return next()
+  }
 
-}

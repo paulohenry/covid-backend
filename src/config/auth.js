@@ -1,6 +1,5 @@
 export default {
-      base:'apicovidtrackerpaulohenry',
-      secret: 'fbe4f6ee446cfe392a57129a487ddf8a',
+      secret:process.env.APP_SECRET,
       expiresIn: '90',
 }
 

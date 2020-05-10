@@ -183,19 +183,20 @@ class UserController {
       bairro,
       cidade,
       estado,
-      pais
+      pais,
+
            } = await user_db.update(req.body)
 
-
-      //  await position_db.update({
-      //    id,
-      //    lat,
-      //    long,
-      //    bairro,
-      //    cidade,
-      //    estado,
-      //    pais
-      //  })
+      const user_celular = await User.findByPk(req.celular)
+       await user_celular.update({
+         user_celular,
+         lat,
+         long,
+         bairro,
+         cidade,
+         estado,
+         pais
+       })
 
      return res.status(202).json({
       id,

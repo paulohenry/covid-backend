@@ -22,7 +22,7 @@ import key from '../../config/googlekey'
     return next()
 
   }catch(error){
-      return res.status(500).json({error:'erro interno geolocalizacao'})
+      return res.status(500).json(error)
     }
   }
 

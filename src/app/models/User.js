@@ -27,6 +27,7 @@ class User extends Model {
         resposta4: Sequelize.STRING,
         resposta5: Sequelize.STRING,
         resposta6: Sequelize.STRING,
+        resposta6A: Sequelize.STRING,
         resposta7: Sequelize.STRING,
         resposta8: Sequelize.STRING,
         resposta9: Sequelize.STRING,

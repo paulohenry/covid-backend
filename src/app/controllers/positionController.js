@@ -28,7 +28,7 @@ class PositionController{
 
 
 
-    console.log(users)
+
     if(!users){
       return res.status(200).json({error:'filtro de busca não encontrado'})
     }

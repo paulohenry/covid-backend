@@ -9,14 +9,18 @@
   "author": "paulohenry <paulo.junior.engenheiro@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@sentry/node": "5.15.5",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.0",
     "node-geocoder": "^3.27.0",
     "pg": "^8.0.3",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.7",
+    "youch": "^2.0.10",
     "yup": "^0.28.5"
   },
   "devDependencies": {

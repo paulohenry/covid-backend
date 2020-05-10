@@ -2,7 +2,7 @@
 
  class FormController{
       async get(req,res,next){
-        try{
+
           const user_db = await User.findByPk(req.userId)
 
           if(!user_db){
@@ -15,6 +15,7 @@
                 resposta4,
                 resposta5,
                 resposta6,
+                resposta6_a,
                 resposta7,
                 resposta8,
                 resposta9,
@@ -33,12 +34,13 @@
           }  = await User.findByPk(req.userId)
 
           return res.status(200).json({
-            resposta1,
+               resposta1,
                 resposta2,
                 resposta3,
                 resposta4,
                 resposta5,
                 resposta6,
+                resposta6_a,
                 resposta7,
                 resposta8,
                 resposta9,
@@ -55,13 +57,11 @@
                 resposta20,
                 classify,
           })
-        }catch(error){
-          return res.status(500).json({error:'erro interno 500 get relatório'})
-        }
+
       }
 
      async  update(req,res,next){
-       try{
+
           const user_db = await User.findByPk(req.userId)
 
             if(!user_db){
@@ -74,6 +74,7 @@
                 resposta4,
                 resposta5,
                 resposta6,
+                resposta6_a,
                 resposta7,
                 resposta8,
                 resposta9,
@@ -97,6 +98,7 @@
                 resposta4,
                 resposta5,
                 resposta6,
+                resposta6_a,
                 resposta7,
                 resposta8,
                 resposta9,
@@ -113,9 +115,7 @@
                 resposta20,
                 classify,
                      })
-      }catch(erro){
-        return res.status(500).json({error:'erro interno 500 update relatório'})
-      }
+
     }
  }
 export default new FormController()
