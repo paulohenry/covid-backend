@@ -235,7 +235,7 @@ class UserController {
       const user = await User.destroy({where:{id:req.userId}})
       const pos =await Position.destroy({where:{user_id:req.userId}})
 
-      if(!user ){
+      if(!user){
           return res.status(200).send({message:'usuário deletado ou não existe'})
         }
         if(!pos){
