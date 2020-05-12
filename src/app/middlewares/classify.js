@@ -5,13 +5,12 @@ export default (req,res,next)=>{
 
 
   const {
-    resposta1,
-    resposta2,
-    resposta3,
-    resposta4,
+
+
     resposta5,
     resposta6,
     resposta6_a,
+    resposta5_a,
     resposta7,
     resposta8,
     resposta9,
@@ -21,87 +20,21 @@ export default (req,res,next)=>{
     resposta13,
     resposta14,
     resposta15,
-
-
+    resposta18,
+    resposta19,
+    resposta20
 
   } = req.body
 
 
 
-       switch (resposta1) {
-          case 'não':
-           classificacao +=3
-           break;
-           case 'sim, com resultado negativo':
-           classificacao +=0
-           break;
-           case 'sim, sem resultado':
-           classificacao +=4
-           break;
-           case 'sim, com resultado positivo':
-           classificacao +=4
-           break;
-
-         default:
-           break;
-       }
-
-        switch (resposta2) {
-          case 'De 1 a 5 dias':
-          classificacao +=1
-          break;
-          case 'De 6 a 10 dias':
-          classificacao +=2
-          break;
-          case 'De 11 a 14 dias':
-          classificacao +=3
-          break;
-          case 'De 14 a 20 dias':
-          classificacao +=4
-          break;
-          case 'Acima de 20 dias':
-          classificacao +=5
-          break;
-
-        default:
-          break;
-      }
-
-      switch (resposta3) {
-        case 'Não, não estou com sintomas':
-        classificacao +=0
-        break;
-        case 'Sim, estou com sintomas':
-        classificacao +=1
-        break;
-
-      default:
-        break;
-    }
-
-      switch (resposta4) {
-        case 'Estou de quarentena obrigatória':
-        classificacao +=2
-        break;
-        case 'Tive alta médica da quarentena':
-        classificacao +=1
-        break;
-
-      default:
-        break;
-      }
       switch (resposta5) {
-        case 'nenhuma das anteriores':
-        classificacao +=1
-        break;
-        case 'Tenho sintomas apenas':
-        classificacao +=5
+        case 'Estou internado agora':
+       classificacao +=600
+       console.log(classificacao)
         break;
         case 'Estive internado(alta médica)':
-        classificacao -=0
-        break;
-        case 'Estou internado agora':
-        classificacao +=35
+        classificacao -=600
         break;
       default:
         break;
@@ -109,28 +42,57 @@ export default (req,res,next)=>{
 
       // falta arrumar a 6
       const Q6_sintomas = (alternativa) =>{
+        const peso = 3
         switch (alternativa) {
-          case 'Não estou nesta lista':
-          classificacao +=0
+          case 'Espirros frequentes':
+          classificacao += (1*peso)
           break;
-          case 'Serviços funerários em geral':
-          classificacao +=5
+          case 'Coriza':
+          classificacao += (2*peso)
           break;
-          case 'Atendente':
-          classificacao -=3
+          case 'Nariz entupido':
+          classificacao += (2*peso)
           break;
-          case 'enfermeiro(a)':
-          classificacao +=10
+          case 'Tosse seca frequente':
+          classificacao += (3*peso)
           break;
-          case 'Remoção de doentes':
-          classificacao +=5
+          case 'Tosse com secreção':
+          classificacao +=(3*peso)
           break;
-          case 'Clínica Médica':
-          classificacao +=10
+          case 'Dor de garganta':
+          classificacao +=(4*peso)
           break;
-          case 'Médico intensivista':
-          classificacao +=15
+          case 'Dor de cabeça':
+          classificacao +=(2*peso)
           break;
+          case 'Dores musculares':
+          classificacao +=(2*peso)
+          break;
+          case 'Falta de energia, cansaço, forte sensação de desgaste':
+          classificacao +=(5*peso)
+          break;
+          case 'Febre maior que 38°C':
+          classificacao +=(6*peso)
+          break;
+          case 'Falta de paladar ou olfato':
+          classificacao +=(6*peso)
+          break;
+          case 'Falta de ar ou desconforto para respirar anormal':
+          classificacao +=(7*peso)
+          break;
+          case 'Dor no peito':
+          classificacao +=(5*peso)
+          break;
+          case 'Problemas intestinais (diarreia)':
+          classificacao +=(1*peso)
+          break;
+          case 'Dores nas articulações ou nos olhos':
+          classificacao +=(5*peso)
+          break;
+          case 'Dedos inchados com pontas rocheadas':
+          classificacao +=(6*peso)
+          break;
+
 
         default:
           break;
@@ -142,51 +104,76 @@ export default (req,res,next)=>{
 
 
 
+      if(resposta6_a){
+        const peso=5
 
-      switch (resposta6_a) {
+        switch (resposta6_a) {
+
         case 'Não estou nesta lista':
-        classificacao +=0
+        classificacao +=(0*peso)
         break;
         case 'Serviços funerários em geral':
-        classificacao +=5
+        classificacao +=(10*peso)
         break;
         case 'Atendente':
-        classificacao -=3
+        classificacao +=(6*peso)
         break;
         case 'enfermeiro(a)':
-        classificacao +=10
+        classificacao +=(10*peso)
         break;
         case 'Remoção de doentes':
-        classificacao +=5
+        classificacao +=(8*peso)
         break;
         case 'Clínica Médica':
-        classificacao +=10
+        classificacao +=(8*peso)
         break;
         case 'Médico intensivista':
-        classificacao +=15
+        classificacao +=(10*peso)
         break;
 
       default:
         break;
       }
+    }
+
+    if(resposta5_a){
+      const peso=2.5
+
+      switch (resposta5_a) {
+
+      case 'Sempre, cobrindo nariz e boca':
+      classificacao -=(10*peso)
+      break;
+      case 'Sempre, ma as vezes relaxo no uso':
+      classificacao +=(4*peso)
+      break;
+      case 'Nem sempre':
+      classificacao +=(10*peso)
+      break;
+
+    default:
+      break;
+    }
+  }
 
 
       const Q7_comportamento = (alternativa)=>{
+
         switch (alternativa) {
           case 'Evita os comportamentos acima e mantém o contato a distância de 2 metros':
-          classificacao +=0
+          classificacao +=(0*2)
           break;
           case 'Beija':
-          classificacao +=4
+          classificacao +=(10*2)
           break;
           case 'Abraça':
-          classificacao -=3
+          classificacao +=(7*2)
           break;
           case 'Aperta as mãos':
-          classificacao +=2
+          classificacao +=(5*2)
           break;
           case 'Fica Próximo para conversar':
-          classificacao +=1
+          classificacao +=(3*2)
           break;
 
         default:
@@ -199,68 +186,95 @@ export default (req,res,next)=>{
 
       // arrumar questao 8
       const Q8_comportamento_sair_de_casa = (alternativa)=>{
-        if(alternativa !== '' || alternativa !== 'Não sai porque estou em isolamento'){
-          classificacao +=1
+
+          switch (alternativa) {
+            case (alternativa !== '' || alternativa !== 'Não sai porque estou em isolamento'):
+            classificacao +=(0*2)
+            break;
+            case 'Para ir a um pronto socorro ou hospital':
+            classificacao +=(10*2)
+            break;
+            case 'Para visitar ou ajudar alguém':
+            classificacao +=(4*2)
+            break;
+            case 'Para ir ao supermercado, feira, lojas, etc':
+            classificacao +=(7*2)
+            break;
+            case 'Para passear ou fazer exercícios':
+            classificacao +=(4*2)
+            break;
+            case 'Para trabalhar':
+            classificacao +=(5*2)
+             break;
+
+          default:
+            break;
           }
       }
 
       resposta8.filter(Q8_comportamento_sair_de_casa)
 
+      if(resposta9){
+
       switch (resposta9) {
         case 'Afastado ou não estou trabalhando no momento':
-        classificacao +=1
+        classificacao +=(0*2)
         break;
         case 'sim, em jornada normal':
-        classificacao +=3
+        classificacao +=(10*2)
         break;
         case 'sim, em jornada reduzida':
-        classificacao -=2
+        classificacao +=(5*2)
         break;
         case 'Estou trabalhando em casa':
-        classificacao +=1
+        classificacao +=(0*2)
         break;
         case 'Estou trabalhando como voluntário':
-        classificacao +=3
+        classificacao +=(10*2)
         break;
 
       default:
         break;
       }
+    }
+
+    if(resposta10){
 
       switch (resposta10) {
         case 'De transporte público':
-        classificacao +=1
+        classificacao +=(10*3)
         break;
         case 'De carona, ou dando carona':
-        classificacao -=2
+        classificacao +=(4*3)
         break;
         case 'sozinho':
-        classificacao +=1
+        classificacao +=(1*3)
         break;
         case 'Com motorista de aplicativo':
-        classificacao +=2
+        classificacao +=(4*3)
         break;
-
       default:
         break;
       }
+    }
 
       const Q11_trabalho_voluntario = (alternativa)=>{
+        const peso  = 5
         switch (alternativa) {
           case 'Não estou nesta lista':
-          classificacao +=1
+          classificacao +=(0*peso)
           break;
           case 'Sou voluntário dentro de comunidades carentes':
-          classificacao -=2
+          classificacao +=(10*peso)
           break;
           case 'Sou voluntário em serviços de armazenamento':
-          classificacao +=1
+          classificacao +=(4*peso)
           break;
           case 'Sou voluntário em serviços internos':
-          classificacao +=2
+          classificacao +=(2*peso)
           break;
           case 'Trabalho em creches, asílos ou similares':
-          classificacao +=2
+          classificacao +=(6*peso)
           break;
 
         default:
@@ -271,21 +285,22 @@ export default (req,res,next)=>{
       resposta11.filter(Q11_trabalho_voluntario)
 
       const Q12_em_contato_com_alguem_07_dias = (alternativa)=>{
+        const peso = 3
         switch (alternativa) {
           case 'Não que eu saiba ou tenha percebido':
-          classificacao +=1
+          classificacao +=(2*peso)
           break;
           case 'Na rua':
-          classificacao -=2
+          classificacao +=(5*peso)
           break;
           case 'Em lugares fechados, pronto socorro ou hospitais':
-          classificacao +=1
+          classificacao +=(10*peso)
           break;
           case 'No trabalho':
-          classificacao +=2
+          classificacao +=(7*peso)
           break;
           case 'Em casa':
-          classificacao +=2
+          classificacao +=(10*peso)
           break;
 
         default:
@@ -295,43 +310,47 @@ export default (req,res,next)=>{
 
       resposta12.filter(Q12_em_contato_com_alguem_07_dias)
 
+      if(resposta13){
+        const peso = 5
       switch (resposta13) {
         case 'Não costumo fazer isso':
-        classificacao +=0
+        classificacao -=(2*peso)
         break;
         case 'Não me lembro':
-        classificacao -=3
+        classificacao +=(10*peso)
         break;
         case 'Sim, mas lavo as mãos antes, quando sinto necessidade':
-        classificacao +=2
+        classificacao +=(2*peso)
         break;
         case 'Sim, mas percebo e me controlo':
-        classificacao +=4
+        classificacao +=(5*peso)
         break;
         case 'Sempre e sem controle':
-        classificacao +=5
+        classificacao +=(10*peso)
         break;
 
       default:
         break;
       }
+    }
 
       const Q14_lava_maos_freq = (alternativa)=>{
+        const peso = 5
         switch (alternativa) {
-          case 'Não que eu saiba ou tenha percebido':
-          classificacao +=1
+          case 'Não tenho o hábito ou condições ':
+          classificacao +=(4*peso)
           break;
-          case 'Na rua':
-          classificacao -=2
+          case 'Sempre que mexo em algo que outros também mexem':
+          classificacao -=(4*peso)
           break;
-          case 'Em lugares fechados, pronto socorro ou hospitais':
-          classificacao +=1
+          case 'Quando penso em botar as mãos no rosto':
+          classificacao -=(3*peso)
           break;
-          case 'No trabalho':
-          classificacao +=2
+          case 'Assim que chego em casa':
+          classificacao -=(2*peso)
           break;
-          case 'Em casa':
-          classificacao +=2
+          case 'Sempre que vou comer ou vou ao banheiro':
+          classificacao -=(1*peso)
           break;
 
         default:
@@ -343,21 +362,22 @@ export default (req,res,next)=>{
 
 
       const Q15_alcool = (alternativa)=>{
+        const peso = 2.5
         switch (alternativa) {
           case 'Não tenho o hábito ou condições':
-          classificacao +=3
+          classificacao +=(10*peso)
           break;
           case 'Sempre que não posso lavar as mãos':
-          classificacao -=1
+          classificacao -=(10*peso)
           break;
           case 'Para higienizar objetos de uso frequente(celulares, carteira, cartão, etc)':
-          classificacao +=0
+          classificacao -=(7*peso)
           break;
           case 'Para limpar sacolas, embalagens e outros objetos que chegam da rua':
-          classificacao +=0
+          classificacao -=(3*peso)
           break;
           case 'Para limpar superfícies(pias, bancadas, utensílios) todo dia':
-          classificacao +=0
+          classificacao -=(-5*peso)
           break;
 
         default:
@@ -368,35 +388,111 @@ export default (req,res,next)=>{
 
 
 
+      if(resposta18){
+        const peso = 5
+      switch (resposta18) {
+        case 'Moro Sozinho':
+        classificacao -=(5*peso)
+        break;
+        case 'com +1 pessoas':
+        classificacao -=(4*peso)
+        break;
+        case 'com +2 pessoas':
+        classificacao -=(3*peso)
+        break;
+        case 'com +3 pessoas':
+        classificacao -=(0*peso)
+        break;
+        case 'com +4 pessoas':
+        classificacao +=(2*peso)
+        break;
+        case 'com +5 pessoas':
+        classificacao +=(5*peso)
+        break;
+        case 'com +6 pessoas':
+        classificacao +=(7*peso)
+        break;
+        case 'Acima de 6 pessoas':
+        classificacao +=(10*peso)
+        break;
+
+      default:
+        break;
+      }
+    }
+
+    if(resposta19){
+      const peso = 5
+    switch (resposta18) {
+      case '1 cômodo apenas':
+      classificacao +=(5*peso)
+      break;
+      case '2 cômodos':
+      classificacao +=(4*peso)
+      break;
+      case '3 cômodos':
+      classificacao +=(3*peso)
+      break;
+      case '4 cômodos':
+      classificacao -=(0*peso)
+      break;
+      case '5 cômodos':
+      classificacao -=(3*peso)
+      break;
+      case '6 cômodos':
+      classificacao -=(4*peso)
+      break;
+      case '7 cômodos':
+      classificacao -=(5*peso)
+      break;
+      case 'Acima de 7 cômodos':
+      classificacao -=(6*peso)
+      break;
+
+    default:
+      break;
+    }
+  }
+
+  if(resposta20){
+    const peso = 5
+  switch (resposta20) {
+    case '1 banheiro apenas':
+    classificacao +=(3*peso)
+    break;
+    case '2 banheiro apenas':
+    classificacao +=(2*peso)
+    break;
+    case 'Acima de 2 banheiros':
+    classificacao +=(1*peso)
+    break;
+    default:
+    break;
+  }
+}
 
 
 
 
-  // fazer calculos de pontuacao
-  // essa pontuacao vem da soma dos formularios
-  // resultado final abaixo vai para outra verificacao de cores
+  const funcao_classificacao = (c)=>{
 
-
-
-  const cores = (c)=>{
-
-      if(c<=10){
+      if(c<=-31){
         c = 'blue'
       }
-      if(c<=11 && c>=20){
+      if(c<=-32 && c>=109){
         c = 'green'
       }
-      if(c<=21 && c>=31){
+      if(c<=109 && c>=339){
         c = 'yellow'
       }
-      if(c>=32){
+      if(c>=339){
         c = 'red'
       }
       return c
     }
 
 
-   req.body.classify = cores(classificacao)
+   req.body.classify = funcao_classificacao(classificacao)
 
 
 

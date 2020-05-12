@@ -75,6 +75,7 @@ module.exports = {
         resposta3: Sequelize.STRING,
         resposta4: Sequelize.STRING,
         resposta5: Sequelize.STRING,
+        resposta5_a: Sequelize.STRING,
         resposta6: Sequelize.STRING,
         resposta6_a:Sequelize.STRING,
         resposta7: Sequelize.STRING,

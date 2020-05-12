@@ -157,6 +157,10 @@ class UserController {
 
     const user_db = await User.findByPk(req.userId)
     // const position_db = await Position.findByPk(req.userId)
+
+      if(!user_db){
+        return res.status(400).json({error:'usuário não encotrado ou não exise'})
+      }
     const user_req = req.body
     const celular_de_outro_user = await User.findOne({where:{celular:user_req.celular}})
 
@@ -187,8 +191,13 @@ class UserController {
 
            } = await user_db.update(req.body)
 
-      const user_celular = await User.findByPk(req.celular)
-       await user_celular.update({
+      const user_celular = await Position.findOne({where:{user_celular:req.celular}})
+
+      if(!user_celular){
+      return res.status(400).json({error:'Posição não encontrada'})
+      }
+
+      await user_celular.update({
          user_celular,
          lat,
          long,
@@ -224,8 +233,12 @@ class UserController {
         return res.status(401).json({error:'senha  incorreta'})
       }
       const user = await User.destroy({where:{id:req.userId}})
+      const pos =await Position.destroy({where:{user_id:req.userId}})
 
-      if(!user){
+      if(!user ){
+          return res.status(200).send({message:'usuário deletado ou não existe'})
+        }
+        if(!pos){
           return res.status(200).send({message:'usuário deletado ou não existe'})
         }
 
