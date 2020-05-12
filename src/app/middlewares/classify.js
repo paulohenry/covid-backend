@@ -27,18 +27,22 @@ export default (req,res,next)=>{
   } = req.body
 
 
-
+const Q5 = (c)=>{
       switch (resposta5) {
         case 'Estou internado agora':
-       classificacao +=600
-       console.log(classificacao)
+       c +=600
+
         break;
         case 'Estive internado(alta médica)':
-        classificacao -=600
+        c -=600
         break;
       default:
         break;
+
       }
+      return c
+    }
+    Q5(classificacao)
 
       // falta arrumar a 6
       const Q6_sintomas = (alternativa) =>{
@@ -96,65 +100,74 @@ export default (req,res,next)=>{
 
         default:
           break;
-        }
+             }
+
         }
 
         resposta6.filter(Q6_sintomas)
 
 
 
-
+const Q6_A = (c)=>{
       if(resposta6_a){
         const peso=5
 
         switch (resposta6_a) {
 
         case 'Não estou nesta lista':
-        classificacao +=(0*peso)
+          c +=(0*peso)
         break;
         case 'Serviços funerários em geral':
-        classificacao +=(10*peso)
+          c +=(10*peso)
         break;
         case 'Atendente':
-        classificacao +=(6*peso)
+          c +=(6*peso)
         break;
         case 'enfermeiro(a)':
-        classificacao +=(10*peso)
+          c +=(10*peso)
         break;
         case 'Remoção de doentes':
-        classificacao +=(8*peso)
+          c +=(8*peso)
         break;
         case 'Clínica Médica':
-        classificacao +=(8*peso)
+          c +=(8*peso)
         break;
         case 'Médico intensivista':
-        classificacao +=(10*peso)
+          c +=(10*peso)
         break;
 
       default:
         break;
       }
     }
+    return c
+  }
+  Q6_A(classificacao)
 
+
+const Q5_A = (c)=>{
     if(resposta5_a){
       const peso=2.5
 
       switch (resposta5_a) {
 
       case 'Sempre, cobrindo nariz e boca':
-      classificacao -=(10*peso)
+      c -=(10*peso)
       break;
       case 'Sempre, ma as vezes relaxo no uso':
-      classificacao +=(4*peso)
+      c +=(4*peso)
       break;
       case 'Nem sempre':
-      classificacao +=(10*peso)
+      c +=(10*peso)
       break;
 
     default:
       break;
     }
   }
+  return c
+}
+Q5_A(classificacao)
 
 
       const Q7_comportamento = (alternativa)=>{
@@ -214,49 +227,61 @@ export default (req,res,next)=>{
 
       resposta8.filter(Q8_comportamento_sair_de_casa)
 
+
+
+const Q9=(c)=>{
       if(resposta9){
 
       switch (resposta9) {
         case 'Afastado ou não estou trabalhando no momento':
-        classificacao +=(0*2)
+        c +=(0*2)
         break;
         case 'sim, em jornada normal':
-        classificacao +=(10*2)
+        c +=(10*2)
         break;
         case 'sim, em jornada reduzida':
-        classificacao +=(5*2)
+        c +=(5*2)
         break;
         case 'Estou trabalhando em casa':
-        classificacao +=(0*2)
+        c +=(0*2)
         break;
         case 'Estou trabalhando como voluntário':
-        classificacao +=(10*2)
+        c +=(10*2)
         break;
 
       default:
         break;
       }
     }
+    return c
+  }
+  Q9(classificacao)
+
+
+  const Q10=(c)=>{
 
     if(resposta10){
 
       switch (resposta10) {
         case 'De transporte público':
-        classificacao +=(10*3)
+        c +=(10*3)
         break;
         case 'De carona, ou dando carona':
-        classificacao +=(4*3)
+        c +=(4*3)
         break;
         case 'sozinho':
-        classificacao +=(1*3)
+        c +=(1*3)
         break;
         case 'Com motorista de aplicativo':
-        classificacao +=(4*3)
+        c +=(4*3)
         break;
       default:
         break;
       }
     }
+    return c
+  }
+  Q10(classificacao)
 
       const Q11_trabalho_voluntario = (alternativa)=>{
         const peso  = 5
@@ -310,29 +335,35 @@ export default (req,res,next)=>{
 
       resposta12.filter(Q12_em_contato_com_alguem_07_dias)
 
+
+const Q13 = (c)=>{
       if(resposta13){
         const peso = 5
       switch (resposta13) {
         case 'Não costumo fazer isso':
-        classificacao -=(2*peso)
+        c -=(2*peso)
         break;
         case 'Não me lembro':
-        classificacao +=(10*peso)
+        c +=(10*peso)
         break;
         case 'Sim, mas lavo as mãos antes, quando sinto necessidade':
-        classificacao +=(2*peso)
+        c +=(2*peso)
         break;
         case 'Sim, mas percebo e me controlo':
-        classificacao +=(5*peso)
+        c +=(5*peso)
         break;
         case 'Sempre e sem controle':
-        classificacao +=(10*peso)
+        c +=(10*peso)
         break;
 
       default:
         break;
       }
+
     }
+    return c
+  }
+  Q13(classificacao)
 
       const Q14_lava_maos_freq = (alternativa)=>{
         const peso = 5
@@ -387,89 +418,103 @@ export default (req,res,next)=>{
       resposta15.filter(Q15_alcool)
 
 
-
+const Q18 = (c)=>{
       if(resposta18){
         const peso = 5
       switch (resposta18) {
         case 'Moro Sozinho':
-        classificacao -=(5*peso)
+        c -=(5*peso)
         break;
         case 'com +1 pessoas':
-        classificacao -=(4*peso)
+        c -=(4*peso)
         break;
         case 'com +2 pessoas':
-        classificacao -=(3*peso)
+        c -=(3*peso)
         break;
         case 'com +3 pessoas':
-        classificacao -=(0*peso)
+        c -=(0*peso)
         break;
         case 'com +4 pessoas':
-        classificacao +=(2*peso)
+        c +=(2*peso)
         break;
         case 'com +5 pessoas':
-        classificacao +=(5*peso)
+        c +=(5*peso)
         break;
         case 'com +6 pessoas':
-        classificacao +=(7*peso)
+        c +=(7*peso)
         break;
         case 'Acima de 6 pessoas':
-        classificacao +=(10*peso)
+        c +=(10*peso)
         break;
 
       default:
         break;
       }
     }
+    return c
+  }
+  Q18(classificacao)
 
+
+
+const Q19 = (c)=>{
     if(resposta19){
       const peso = 5
     switch (resposta18) {
       case '1 cômodo apenas':
-      classificacao +=(5*peso)
+      c +=(5*peso)
       break;
       case '2 cômodos':
-      classificacao +=(4*peso)
+      c +=(4*peso)
       break;
       case '3 cômodos':
-      classificacao +=(3*peso)
+      c +=(3*peso)
       break;
       case '4 cômodos':
-      classificacao -=(0*peso)
+      c -=(0*peso)
       break;
       case '5 cômodos':
-      classificacao -=(3*peso)
+      c -=(3*peso)
       break;
       case '6 cômodos':
-      classificacao -=(4*peso)
+      c -=(4*peso)
       break;
       case '7 cômodos':
-      classificacao -=(5*peso)
+      c -=(5*peso)
       break;
       case 'Acima de 7 cômodos':
-      classificacao -=(6*peso)
+      c -=(6*peso)
       break;
 
     default:
       break;
     }
   }
+  return c
+}
+Q19(classificacao)
 
+
+const Q20 = (c)=>{
   if(resposta20){
     const peso = 5
   switch (resposta20) {
     case '1 banheiro apenas':
-    classificacao +=(3*peso)
+    c +=(3*peso)
     break;
     case '2 banheiro apenas':
-    classificacao +=(2*peso)
+    c +=(2*peso)
     break;
     case 'Acima de 2 banheiros':
-    classificacao +=(1*peso)
+    c +=(1*peso)
     break;
     default:
     break;
   }
+  }
+    return c
 }
+Q20(classificacao)
 
 
 
@@ -510,6 +555,7 @@ export default (req,res,next)=>{
   req.body.resposta12=JSON.stringify(resposta12)
   req.body.resposta14=JSON.stringify(resposta14)
   req.body.resposta15=JSON.stringify(resposta15)
+
 
 
 

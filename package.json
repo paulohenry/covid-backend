@@ -4,7 +4,9 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "debug": "nodemon --inspect src/server.js"
+    "debug": "nodemon --inspect src/server.js",
+    "build":"sucrase ./src -d ./dist --transforms imports",
+    "start":"node dist/server.js"
   },
   "author": "paulohenry <paulo.junior.engenheiro@gmail.com>",
   "license": "MIT",
