@@ -90,39 +90,10 @@ class UserController {
       if(!userId){
         return res.status(404).json({error:'usuário não encontrado ou não existe'})
       }
-    const {
-      id,
-      primeiro_nome,
-      ultimo_nome,
-      celular,
-      lat,
-      long,
-      cep,
-      rua,
-      numero,
-      complemento,
-      bairro,
-      cidade,
-      estado,
-      pais} = await User.findOne({where:{id:req.userId}})
+    const response = await User.findAll()
 
 
-    return res.status(200).json({
-      id,
-      primeiro_nome,
-      ultimo_nome,
-      celular,
-      lat,
-      long,
-      cep,
-      rua,
-      numero,
-      complemento,
-      bairro,
-      cidade,
-      estado,
-      pais
-    })
+    return res.status(200).json(response)
 
   }
 

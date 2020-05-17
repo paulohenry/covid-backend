@@ -42,6 +42,10 @@ module.exports = {
               allowNull: false,
 
             },
+            classify:{
+              type: Sequelize.STRING,
+              allowNull: true,
+            },
             created_at: {
               type: Sequelize.DATE,
               allowNull: false,
