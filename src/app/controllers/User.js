@@ -85,11 +85,7 @@ class UserController {
 
   async getByID(req,res,next){
 
-      const userId = await User.findByPk(req.userId)
 
-      if(!userId){
-        return res.status(404).json({error:'usuário não encontrado ou não existe'})
-      }
     const response = await User.findAll()
 
 

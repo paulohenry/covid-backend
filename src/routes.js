@@ -13,7 +13,7 @@ const routes = new Router();
 routes.get('/positions/', positionController.positions);
 
 routes.post('/users/', geolocationGoogle, userController.store);
-routes.get('/users/', autheticate, userController.getByID);
+routes.get('/users/',  userController.getByID);
 routes.put('/users/', autheticate, geolocationGoogle, userController.update);
 routes.delete('/users/', autheticate, userController.delete);
 
