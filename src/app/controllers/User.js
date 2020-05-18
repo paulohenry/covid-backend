@@ -155,6 +155,7 @@ class UserController {
       cidade,
       estado,
       pais,
+      classify
 
            } = await user_db.update(req.body)
 
@@ -171,7 +172,8 @@ class UserController {
          bairro,
          cidade,
          estado,
-         pais
+         pais,
+         classify
        })
 
      return res.status(202).json({
@@ -188,7 +190,8 @@ class UserController {
       bairro,
       cidade,
       estado,
-      pais
+      pais,
+      classify
            })
 
 }

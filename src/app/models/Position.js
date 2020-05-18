@@ -13,6 +13,7 @@ class Position extends Model {
         cidade: Sequelize.STRING,
         estado: Sequelize.STRING,
         pais: Sequelize.STRING,
+        classify:Sequelize.STRING
       },
       {
         sequelize,

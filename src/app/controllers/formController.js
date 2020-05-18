@@ -3,7 +3,7 @@
  class FormController{
       async get(req,res,next){
 
-          const user_db = await User.findByPk(req.userId)
+          const user_db = await User.findByPk(req.body.id)
 
           if(!user_db){
             return res.status(404).json({error:'relatório não existe ou não encontrado'})
@@ -32,7 +32,7 @@
                 resposta19,
                 resposta20,
                 classify,
-          }  = await User.findByPk(req.userId)
+          }  = await User.findByPk(req.body.id)
 
           return res.status(200).json({
                resposta1,
@@ -64,7 +64,7 @@
 
      async  update(req,res,next){
 
-          const user_db = await User.findByPk(req.userId)
+          const user_db = await User.findByPk(req.body.id)
 
             if(!user_db){
               return res.status(404).json({error:'relatório não existe ou não encontrado'})
