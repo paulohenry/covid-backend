@@ -107,10 +107,11 @@ const Q5 = (c)=>{
              }
             }
         }
-
+        if(resposta6){
         resposta6.filter(Q6_sintomas)
         console.log(`questao 6: ${classificacao}`)
         console.log(resposta6)
+        }
 
 const Q6_A = (c)=>{
       if(c){
@@ -201,10 +202,11 @@ const Q7_comportamento = (alternativa)=>{
           break;
         }
       }
-
+      if(resposta7){
       resposta7.filter(Q7_comportamento)
       console.log(`resposta 7: ${classificacao}`)
       console.log(resposta7)
+    }
       // arrumar questao 8
       const Q8_comportamento_sair_de_casa = (alternativa)=>{
 
@@ -232,10 +234,11 @@ const Q7_comportamento = (alternativa)=>{
             break;
           }
       }
-
+      if(resposta8){
       resposta8.filter(Q8_comportamento_sair_de_casa)
       console.log(`resposta 8: ${classificacao}`)
       console.log(resposta8)
+      }
 
 const Q9=(c)=>{
       if(c){
@@ -261,7 +264,7 @@ const Q9=(c)=>{
         break;
       }
     }
-    return c
+   
   }
   Q9(resposta9)
   console.log(`resposta 9: ${classificacao}`)
@@ -318,11 +321,11 @@ const Q9=(c)=>{
         }
       }
       }
-
+      if(resposta11){
       resposta11.filter(Q11_trabalho_voluntario)
       console.log(`resposta 11: ${classificacao}`)
       console.log(resposta11)
-
+      }
       const Q12_em_contato_com_alguem_07_dias = (alternativa)=>{
         const peso = 3
         if(alternativa){
@@ -348,10 +351,11 @@ const Q9=(c)=>{
         }
       }
       }
-
+      if(resposta12){
       resposta12.filter(Q12_em_contato_com_alguem_07_dias)
       console.log(`resposta 12: ${classificacao}`)
       console.log(resposta12)
+      }
 const Q13 = (c)=>{
       if(c){
         const peso = 5
@@ -407,10 +411,11 @@ const Q13 = (c)=>{
         }
       }
     }
-
+      if(resposta14){
       resposta14.filter(Q14_lava_maos_freq)
    console.log(`resposta 14: ${classificacao}`)
    console.log(resposta14)
+      }
       const Q15_alcool = (alternativa)=>{
         const peso = 2.5
         if(alternativa){
@@ -436,9 +441,11 @@ const Q13 = (c)=>{
         }
         }
       }
+      if(resposta15){
       resposta15.filter(Q15_alcool)
       console.log(`resposta 15: ${classificacao}`)
       console.log(resposta15)
+      }
 const Q18 = (c)=>{
       if(c){
         const peso = 5
