@@ -552,14 +552,11 @@ console.log(`resposta 20: ${classificacao}`)
 
       if(c<=-31){
         c = 'blue'
-      }
-      if(c<=-32 && c>=109){
+      }else if(c>=-32 && c<=109){
         c = 'green'
-      }
-      if(c<=109 && c>=339){
+      }else if(c>=109 && c<=339){
         c = 'yellow'
-      }
-      if(c>=339){
+      }else if(c>=339){
         c = 'red'
       }
       return c
@@ -588,7 +585,7 @@ console.log(`resposta 20: ${classificacao}`)
 
 
 
-    // return res.status(200).json(req.body)
-   return next()
+    return res.status(200).json(req.body)
+  //  return next()
   }
 
